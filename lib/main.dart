@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:statedemo/controller.dart';
@@ -27,13 +29,26 @@ class Screen1 extends StatelessWidget {
   Screen1({super.key});
 
   final controller = Get.put(TestController());
+  final time = DateTime.now().obs;
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((t) {
+      Timer.periodic(const Duration(seconds: 1), (timer) {
+        time.value = DateTime.now();
+      });
+    });
     return Scaffold(
       appBar: AppBar(
         title: const Text("SOU Demo API Call"),
         centerTitle: true,
+        actions: [
+          Obx(
+            () => Text(
+                    "${time.value.hour}:${time.value.minute}:${time.value.second}")
+                .paddingSymmetric(horizontal: 10),
+          )
+        ],
       ),
       body: SafeArea(
         child: Obx(
