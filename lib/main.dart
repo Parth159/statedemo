@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:statedemo/controller.dart';
 
 void main() {
@@ -44,8 +45,7 @@ class Screen1 extends StatelessWidget {
         centerTitle: true,
         actions: [
           Obx(
-            () => Text(
-                    "${time.value.hour}:${time.value.minute}:${time.value.second}")
+            () => Text(DateFormat("dd MM, yyyy hh:mm a").format(time.value))
                 .paddingSymmetric(horizontal: 10),
           )
         ],
